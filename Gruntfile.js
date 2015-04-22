@@ -3,6 +3,7 @@ module.exports = function(grunt) {
 
   // Project configuration.
   grunt.initConfig({
+    
     jade: {
       compile: {
         options: {
@@ -35,7 +36,21 @@ module.exports = function(grunt) {
         }
       }
     },
+    csscomb: {
+      dynamic_mappings: {
+          expand: true,
+          cwd: 'app/combed/',
+          src: ['**/*.scss', '!*.resorted.css'],
+          dest: 'app/css/',
+          ext: '.scss'
+      }
+    },
+
     watch: {
+      csscomb : {
+        files: 'app/combed/**/*.scss',
+        tasks: ['csscomb']
+      } ,
       css: {
         files: 'app/css/**/*.scss',
         tasks: ['sass']
@@ -57,6 +72,7 @@ module.exports = function(grunt) {
   grunt.loadNpmTasks('grunt-contrib-copy');
   grunt.loadNpmTasks('grunt-contrib-watch');
   grunt.loadNpmTasks('grunt-contrib-sass');
+  grunt.loadNpmTasks('grunt-csscomb');
   //grunt.loadNpmTasks('grunt-contrib-copy');
 
   // Default task.
